@@ -3,11 +3,11 @@ import { axiosRequest, csmsApi } from '@/shared/api/api-config.ts';
 import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-enum StationOperatingStatusEnum { // 충전소 운영 상태
-  OPERATING, // 운영중 1
-  PAUSE, // 임시중지 2
-  STOP, // 영구중지 3
-}
+// enum StationOperatingStatusEnum { // 충전소 운영 상태
+//   OPERATING, // 운영중 1
+//   PAUSE, // 임시중지 2
+//   STOP, // 영구중지 3
+// }
 
 interface IParamsPostStationList extends Record<string, unknown> {
   descending: boolean; // 내림차순 여부
@@ -17,12 +17,12 @@ interface IParamsPostStationList extends Record<string, unknown> {
   rowsNumber?: number; // 총 결과 목록 수
 }
 
-interface IRequestPostStation {
-  evStationAddress?: string;
-  evStationName?: string;
-  operatingInstitutionList?: string[];
-  operatingStatus?: StationOperatingStatusEnum;
-}
+// interface IRequestPostStation {
+//   evStationAddress?: string;
+//   evStationName?: string;
+//   operatingInstitutionList?: string[];
+//   operatingStatus?: StationOperatingStatusEnum;
+// }
 
 interface IResponsePostStation {
   contents: {
