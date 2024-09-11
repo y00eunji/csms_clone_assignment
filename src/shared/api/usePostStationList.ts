@@ -10,11 +10,11 @@ enum StationOperatingStatusEnum { // 충전소 운영 상태
 }
 
 interface IParamsPostStationList {
-  sortBy: string; //  정렬 기준 값
   descending: boolean; // 내림차순 여부
   page: number; // 현재 페이지
   rowsPerPage: number; // 페이지 내 출력 목록 수
-  rowsNumber: number; // 총 결과 목록 수
+  sortBy?: string; //  정렬 기준 값
+  rowsNumber?: number; // 총 결과 목록 수
 }
 
 interface IRequestPostStation {

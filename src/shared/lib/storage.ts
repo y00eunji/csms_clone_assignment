@@ -1,7 +1,8 @@
 // 토큰을 저장하는 함수
-export const setTokens = (accessToken: string, refreshToken: string): void => {
+export const setTokens = (accessToken: string, refreshToken?: string): void => {
+  console.log('토큰 변경됨');
   sessionStorage.setItem('accessToken', accessToken);
-  sessionStorage.setItem('refreshToken', refreshToken);
+  if (refreshToken) sessionStorage.setItem('refreshToken', refreshToken);
 };
 
 // 토큰을 가져오는 함수

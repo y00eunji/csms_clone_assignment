@@ -29,6 +29,7 @@ export const usePostLogin = (): UseMutationResult<IResponsePostToken, AxiosError
     mutationKey: ['post-login'],
     mutationFn: (data: IRequestPostToken) => postLogin(data),
     onSuccess: data => {
+      console.log(data);
       if (data.resultData) {
         setTokens(data.resultData.accessToken, data.resultData.refreshToken); // 세션 스토리지에 토큰 저장
       }

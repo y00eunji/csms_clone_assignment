@@ -21,6 +21,6 @@ export const useGetOperatingInstitution = (): UseQueryResult<{ label: string; va
   return useQuery({
     queryKey: ['get-operating-institution'],
     queryFn: getOperatingInstitution,
-    select: data => data.resultData,
+    // select: data => data.resultData,
   });
 };
