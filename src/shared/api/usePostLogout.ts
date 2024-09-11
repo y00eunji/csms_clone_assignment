@@ -5,15 +5,10 @@ import { useMutation, UseMutationResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 interface IResponsePostLogout {
-  resultCode: string;
-  description: string;
-  needRedirect: boolean;
-  resultData: {
-    status: string;
-  };
+  status: string;
 }
 
-const postLogout = async () => {
+const postLogout = async (): Promise<IResponsePostLogout> => {
   return await axiosRequest<IResponsePostLogout>(tokenApi, 'POST', '/auth/logout');
 };
 

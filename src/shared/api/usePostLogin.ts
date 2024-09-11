@@ -11,16 +11,11 @@ interface IRequestPostToken {
 }
 
 interface IResponsePostToken {
-  resultCode: string;
-  description: string;
-  needRedirect: boolean;
-  resultData: {
-    accessToken: string;
-    refreshToken: string;
-  };
+  accessToken: string;
+  refreshToken: string;
 }
 
-const postLogin = async (data: IRequestPostToken) => {
+const postLogin = async (data: IRequestPostToken): Promise<IResponsePostToken> => {
   return await axiosRequest<IResponsePostToken>(tokenApi, 'POST', '/auth/login', data);
 };
 
@@ -28,10 +23,10 @@ export const usePostLogin = (): UseMutationResult<IResponsePostToken, AxiosError
   return useMutation({
     mutationKey: ['post-login'],
     mutationFn: (data: IRequestPostToken) => postLogin(data),
-    onSuccess: data => {
-      console.log(data);
-      if (data.resultData) {
-        setTokens(data.resultData.accessToken, data.resultData.refreshToken); // 세션 스토리지에 토큰 저장
+    onSuccess: (response: IResponsePostToken) => {
+      if (response) {
+        const { accessToken, refreshToken } = response;
+        setTokens(accessToken, refreshToken);
       }
     },
   });

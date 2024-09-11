@@ -53,18 +53,17 @@ export const axiosRequest = async <T>(
       headers,
     });
 
-    // 토큰 관련 에러 처리
-    if (ERROR_CODE.includes(response.data.resultCode as TYPE_ERROR_CODE)) {
-      switch (response.data.resultCode) {
-        case 1004: { // 액세스 토큰 갱신 로직
-          const { accessToken, refreshToken } = getTokens();
+    const { resultData, resultCode } = response.data;
 
+    // 토큰 관련 에러 처리
+    if (ERROR_CODE.includes(resultCode as TYPE_ERROR_CODE)) {
+      switch (resultCode) {
+        case 1004: {
+          const { accessToken, refreshToken } = getTokens();
           if (refreshToken && accessToken) {
             try {
               const result = await postReissue({ accessToken, refreshToken });
-
-              // 새로운 토큰이 유효한 경우
-              if (!ERROR_CODE.includes(response.data.resultCode as TYPE_ERROR_CODE)) {
+              if (!ERROR_CODE.includes(result.resultCode as TYPE_ERROR_CODE)) {
                 setTokens(result.resultData.accessToken);
               } else {
                 console.log('토큰 갱신 실패, 로그아웃 처리');
@@ -86,7 +85,7 @@ export const axiosRequest = async <T>(
       }
     }
 
-    return response.data.resultData;
+    return resultData;
   } catch (error) {
     console.error('Failed to request', error);
   }
