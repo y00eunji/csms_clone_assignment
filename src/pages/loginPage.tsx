@@ -8,7 +8,7 @@ export default function LoginPage() {
         <div className="fixed left-4 top-8 flex gap-4 items-center">
           <img src="/ci_ocpp_16.png" alt="icon" className="w-[80px] h-[50px]" />
           <img src="/ci-ocpp.png" alt="icon" className="w-[80px] h-[40px]" />
-          <div className="text-white text-[15px]">
+          <div className="text-white text-[15px] leading-4">
             Fully Certificate
             <br /> OCPP 1.6 & OCPP 2.0.1
           </div>
@@ -30,7 +30,7 @@ export default function LoginPage() {
             </div>
             <div className="flex flex-col items-center justify-center">
               <LoginForm />
-              <p className="mt-[40px] text-white">02-2125-4060</p>
+              <p className="mt-[40px] text-white opacity-80">02-2125-4060</p>
             </div>
           </div>
           <div className="text-white fixed bottom-8">

@@ -6,39 +6,61 @@ import Button from '@/shared/ui/Button/Button.tsx';
 import { useState } from 'react';
 
 export default function LoginForm() {
-  const [idValue, onIdChange] = useInput();
-  const [passwordValue, onPasswordChange] = useInput();
+  const [idValue, onIdChange, , resetIdValue] = useInput();
+  const [passwordValue, onPasswordChange, , resetPasswordValue] = useInput();
 
   const [isIdEmpty, setIsIdEmpty] = useState(false);
   const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
-  const handleBlur = (setter: React.Dispatch<React.SetStateAction<boolean>>, value: string) => {
+  const handleIsEmpty = (setter: React.Dispatch<React.SetStateAction<boolean>>, value: string) => {
     setter(isEmpty(value));
+  };
+
+  const handleIdFocus = () => {
+    setIsIdEmpty(false);
+  };
+
+  const handlePasswordFocus = () => {
+    setIsPasswordEmpty(false);
   };
 
   const handleLoginButtonClick = () => {
     if (isIdEmpty || isPasswordEmpty) return;
 
     // TODO: login logic
+    navigator;
+  };
+
+  const handleIdDeleteButton = () => {
+    resetIdValue();
+  };
+
+  const handlePasswordDeleteButton = () => {
+    resetPasswordValue();
   };
 
   return (
-    <div className="flex flex-col w-[350px] gap-2">
+    <div className="flex flex-col w-[350px] gap-1">
       <LoginInput
         placeholder="ID"
         value={idValue}
-        onChange={onIdChange}
         isEmpty={isIdEmpty}
-        onBlur={event => handleBlur(setIsIdEmpty, event.target.value)}
+        onClick={handleIdDeleteButton}
+        onChange={onIdChange}
+        onFocus={handleIdFocus}
+        onBlur={event => handleIsEmpty(setIsIdEmpty, event.target.value)}
       />
       <LoginInput
         placeholder="Password"
         value={passwordValue}
-        onChange={onPasswordChange}
         isEmpty={isPasswordEmpty}
-        onBlur={event => handleBlur(setIsPasswordEmpty, event.target.value)}
+        isPassword={true}
+        onClick={handlePasswordDeleteButton}
+        onChange={onPasswordChange}
+        onFocus={handlePasswordFocus}
+        onBlur={event => handleIsEmpty(setIsPasswordEmpty, event.target.value)}
       />
-      <Button text="Log In" onClick={handleLoginButtonClick} className="bg-white text-black mt-4 font-semibold" />
+      <Button text="Log In" onClick={handleLoginButtonClick} className="bg-white text-black mt-4 font-semibold " />
     </div>
   );
 }
