@@ -11,8 +11,8 @@ const meta = {
   },
   tags: ['autodocs'],
   argTypes: {
-    text: { control: 'text', description: '버튼 내부 텍스트입니다.' },
-    rightNumber: { control: 'number', description: '오른쪽에 표시할 숫자입니다.' },
+    placeholder: { control: 'text' },
+    value: { control: 'text' },
   },
   args: { onClick: fn() },
 } satisfies Meta<typeof Input>;
@@ -22,6 +22,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    text: '텍스트',
+    placeholder: 'ID',
+    value: 'text',
   },
 };
