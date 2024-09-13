@@ -4,8 +4,11 @@ import useInput from '@/shared/lib/hooks/useInput.ts';
 import Button from '@/shared/ui/Button/Button.tsx';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+
   const [idValue, onIdChange, , resetIdValue] = useInput();
   const [passwordValue, onPasswordChange, , resetPasswordValue] = useInput();
 
@@ -28,7 +31,9 @@ export default function LoginForm() {
     if (isIdEmpty || isPasswordEmpty) return;
 
     // TODO: login logic
-    navigator;
+
+    // 로그인 성공 시 충전소 관리 페이지로 이동
+    navigate('/charging-infra/ev-station/list');
   };
 
   const handleIdDeleteButton = () => {
