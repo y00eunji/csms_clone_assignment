@@ -1,4 +1,4 @@
-import { useAuthStore } from '@/shared/model/useAuthStore';
+import { useAuthStore } from '@/shared/model/useAuthStore.ts';
 
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 
