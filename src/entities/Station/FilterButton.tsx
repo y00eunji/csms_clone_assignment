@@ -22,7 +22,7 @@ export default function FilterButton({ name, text, count = 0, activeButton, onCl
         activeButton === name && 'bg-[#d9dee2]',
       )}
     >
-      <div>{text}</div> <div className={cn('font-semibold', 'permanent' === name && 'text-red-600')}>{count}</div>
+      <div>{text}</div> <div className={cn('font-semibold', 'stop' === name && 'text-red-600')}>{count}</div>
     </button>
   );
 }

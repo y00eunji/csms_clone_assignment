@@ -1,6 +1,6 @@
 import PrivateRoute from '@/app/PrivateRoute.tsx';
+import ChargingInfraPage from '@/pages/chargingInfraPage.tsx';
 import LoginPage from '@/pages/loginPage.tsx';
-import StationInfo from '@/pages/stationInfo.tsx';
 
 import { Route, Routes } from 'react-router-dom';
 
@@ -11,7 +11,7 @@ function App() {
         <Route path="/" element={<LoginPage />} />
 
         <Route element={<PrivateRoute />}>
-          <Route path="/charging-infra/ev-station/list" element={<StationInfo />} />
+          <Route path="/charging-infra/ev-station/list" element={<ChargingInfraPage />} />
         </Route>
       </Routes>
     </div>

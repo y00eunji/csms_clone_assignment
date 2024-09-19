@@ -12,7 +12,7 @@ import Header from '@/widgets/Station/Header.tsx';
 
 import { useEffect, useState } from 'react';
 
-export default function StationInfo() {
+export default function ChargingInfraPage() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [activeFilter, setActiveFilter] = useState<FilterType>('none');
   const [stationData, setStationData] = useState<IResponsePostStation | null>(null);
