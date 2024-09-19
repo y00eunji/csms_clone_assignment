@@ -1,7 +1,7 @@
 import { cn } from '@/shared/lib/cn.ts';
 import Input from '@/shared/ui/input/Input.tsx';
 
-import { useState } from 'react';
+import { ChangeEvent, FC, ReactNode, useState } from 'react';
 import { FaEyeSlash } from 'react-icons/fa';
 import { MdRemoveRedEye } from 'react-icons/md';
 import { RiErrorWarningFill } from 'react-icons/ri';
@@ -13,12 +13,12 @@ interface InputFieldProps {
   isEmpty: boolean;
   isPassword?: boolean;
   onClick: () => void;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: () => void;
 }
 
-const IconWrapper: React.FC<{ className?: string; onClick?: () => void; children: React.ReactNode }> = ({
+const IconWrapper: FC<{ className?: string; onClick?: () => void; children: ReactNode }> = ({
   className,
   onClick,
   children,
@@ -28,25 +28,25 @@ const IconWrapper: React.FC<{ className?: string; onClick?: () => void; children
   </span>
 );
 
-const ErrorIcon: React.FC<{ isPassword?: boolean }> = ({ isPassword }) => (
+const ErrorIcon: FC<{ isPassword?: boolean }> = ({ isPassword }) => (
   <IconWrapper className={isPassword ? 'right-12' : 'right-3'}>
     <RiErrorWarningFill size={25} className="text-red-500" />
   </IconWrapper>
 );
 
-const DeleteIcon: React.FC<{ isPassword?: boolean; onClick: () => void }> = ({ isPassword, onClick }) => (
+const DeleteIcon: FC<{ isPassword?: boolean; onClick: () => void }> = ({ isPassword, onClick }) => (
   <IconWrapper className={isPassword ? 'right-10' : 'right-2'} onClick={onClick}>
     <TiDelete size={35} className="opacity-60" />
   </IconWrapper>
 );
 
-const PasswordToggle: React.FC<{ visible: boolean; onClick: () => void }> = ({ visible, onClick }) => (
+const PasswordToggle: FC<{ visible: boolean; onClick: () => void }> = ({ visible, onClick }) => (
   <IconWrapper className="right-3" onClick={onClick}>
     {visible ? <MdRemoveRedEye size={30} className="opacity-60" /> : <FaEyeSlash size={30} className="opacity-60" />}
   </IconWrapper>
 );
 
-export default function LoginqInput({
+export default function LoginInput({
   placeholder,
   value,
   isPassword,

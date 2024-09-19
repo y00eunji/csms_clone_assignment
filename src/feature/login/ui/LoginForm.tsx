@@ -10,14 +10,15 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
   const navigate = useNavigate();
+  const { mutate: login } = usePostLogin();
+  const { login: setAuthenticated } = useAuthStore();
 
   const [idValue, onIdChange, , resetIdValue] = useInput();
+
   const [passwordValue, onPasswordChange, , resetPasswordValue] = useInput();
-
   const [isIdEmpty, setIsIdEmpty] = useState(false);
-  const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
-  const { mutate: login } = usePostLogin();
+  const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
   const handleIsEmpty = (setter: Dispatch<SetStateAction<boolean>>, value: string) => {
     setter(isEmpty(value));
@@ -39,7 +40,6 @@ export default function LoginForm() {
     resetPasswordValue();
   };
 
-  // 로그인 성공 시 충전소 관리 페이지로 이동
   const handleLoginButtonClick = () => {
     if (isIdEmpty || isPasswordEmpty) return;
 
@@ -53,7 +53,7 @@ export default function LoginForm() {
       },
       {
         onSuccess: () => {
-          useAuthStore.getState().login();
+          setAuthenticated();
           navigate('/charging-infra/ev-station/list');
         },
       },
