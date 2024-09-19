@@ -5,7 +5,7 @@ interface IPaginationProps {
   perPage: number;
 }
 
-export default function Pagination({ perPage }: IPaginationProps) {
+export function Pagination({ perPage }: IPaginationProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(perPage);
   const dropdownRef = useRef<HTMLDivElement>(null);

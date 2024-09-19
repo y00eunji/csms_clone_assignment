@@ -25,7 +25,7 @@ interface TableProps {
   contents: EVStation[];
 }
 
-export default function EVStationTable({ contents }: TableProps) {
+export function EVStationTable({ contents }: TableProps) {
   return (
     <div className="w-full bg-white border border-gray-300">
       <table className="min-w-full table-auto border-collapse border border-gray-200">

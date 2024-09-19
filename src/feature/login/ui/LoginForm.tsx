@@ -1,14 +1,14 @@
+import { usePostLogin } from '@/feature/login/api/usePostLogin.ts';
 import { isEmpty, isIdValid, isPasswordValid } from '@/feature/login/lib/validation.ts';
 import LoginInput from '@/feature/login/ui/LoginInput.tsx';
-import { usePostLogin } from '@/shared/api/usePostLogin.ts';
-import useInput from '@/shared/lib/hooks/useInput.ts';
+import useInput from '@/shared/lib/useInput.ts';
 import { useAuthStore } from '@/shared/model/useAuthStore.ts';
 import Button from '@/shared/ui/Button/Button.tsx';
 
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function LoginForm() {
+export function LoginForm() {
   const navigate = useNavigate();
   const { mutate: login } = usePostLogin();
   const { login: setAuthenticated } = useAuthStore();

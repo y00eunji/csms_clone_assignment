@@ -1,6 +1,6 @@
-import LoginForm from '@/feature/login/ui/LoginForm.tsx';
+import { LoginForm } from '@/feature/login';
 
-export default function LoginPage() {
+export function LoginPage() {
   return (
     <div className="bg-[url('/img-eviqcsms.png')] bg-cover h-screen relative">
       <div className="absolute inset-0 bg-black opacity-70" />

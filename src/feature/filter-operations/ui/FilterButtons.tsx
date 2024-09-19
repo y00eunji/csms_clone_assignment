@@ -1,14 +1,14 @@
-import FilterButton, { FilterType } from '@/entities/Station/FilterButton.tsx';
+import FilterButton, { FilterType } from '@/entities/Station/ui/FilterButton.tsx';
 
-import React from 'react';
+import { Dispatch, SetStateAction } from 'react';
 
 interface IFilterButtonsProps {
   active: FilterType;
-  setActive: React.Dispatch<React.SetStateAction<FilterType>>;
+  setActive: Dispatch<SetStateAction<FilterType>>;
   counts: { operating: number; pause: number; stop: number };
 }
 
-export default function FilterButtons({ active, setActive, counts }: IFilterButtonsProps) {
+export function FilterButtons({ active, setActive, counts }: IFilterButtonsProps) {
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (active === (e.currentTarget.name as FilterType)) {
       setActive('none');

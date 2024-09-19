@@ -15,7 +15,6 @@ export const useAuthStore = create<AuthState>()(
       logout: () => set({ isAuthenticated: false }),
     }),
     {
-      // 로컬 스토리지 사용
       name: 'auth',
       storage: createJSONStorage(() => sessionStorage),
     },

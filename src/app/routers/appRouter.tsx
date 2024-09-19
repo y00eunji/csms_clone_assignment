@@ -1,6 +1,6 @@
 import PrivateRoute from '@/app/routers/PrivateRoute.tsx';
-import ChargingInfraPage from '@/pages/chargingInfraPage.tsx';
-import LoginPage from '@/pages/loginPage.tsx';
+import { ChargingInfraPage } from '@/pages/charging';
+import { LoginPage } from '@/pages/login';
 
 import { Route, Routes } from 'react-router-dom';
 

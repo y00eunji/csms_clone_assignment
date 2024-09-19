@@ -1,18 +1,18 @@
-import { FilterType } from '@/entities/Station/FilterButton.tsx';
-import Pagination from '@/entities/Station/Pagination.tsx';
-import Table from '@/entities/Station/Table.tsx';
-import { StationOperatingStatusEnum } from '@/entities/Station/model/typs.ts';
-import FilterButtons from '@/feature/filter-operations/ui/FilterButtons.tsx';
-import SearchInputs from '@/feature/search-data/ui/SearchInputs.tsx';
+import { EVStationTable, Pagination } from '@/entities/Station';
+import { IResponsePostStation, usePostStationList } from '@/entities/Station/api/usePostStationList.ts';
+import { StationOperatingStatusEnum } from '@/entities/Station/model/type.ts';
+import { FilterType } from '@/entities/Station/ui/FilterButton.tsx';
+import { FilterButtons } from '@/feature/filter-operations';
+import { SearchInputs } from '@/feature/search-data';
 import { useGetUser } from '@/shared/api/useGetUser.ts';
-import { IResponsePostStation, usePostStationList } from '@/shared/api/usePostStationList.ts';
 import { cn } from '@/shared/lib/cn.ts';
-import Navigation from '@/widgets/Navigation/Navigation.tsx';
-import Header from '@/widgets/Station/Header.tsx';
+import { Navigation } from '@/widgets/Navigation';
 
 import { useEffect, useState } from 'react';
 
-export default function ChargingInfraPage() {
+import { Header } from 'widgets/Header';
+
+export function ChargingInfraPage() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [activeFilter, setActiveFilter] = useState<FilterType>('none');
   const [stationData, setStationData] = useState<IResponsePostStation | null>(null);
@@ -25,6 +25,7 @@ export default function ChargingInfraPage() {
     setIsNavOpen(prev => !prev);
   };
 
+  // 데이터 패칭해오기
   useEffect(() => {
     fetchStationData({
       params: {
@@ -42,6 +43,7 @@ export default function ChargingInfraPage() {
     }
   }, [fetchedData]);
 
+  // 필터링 버튼
   useEffect(() => {
     if (stationData) {
       let updatedContents = [...stationData.contents];
@@ -64,6 +66,7 @@ export default function ChargingInfraPage() {
     }
   }, [activeFilter]);
 
+  // 검색 기능
   const handleSearch = (filters: { stationName: string; stationAddress: string; selectedOperations: string[] }) => {
     if (stationData) {
       let updatedContents = [...stationData.contents];
@@ -106,7 +109,7 @@ export default function ChargingInfraPage() {
               stop: stationData?.operatingStatistics.stop || 0,
             }}
           />
-          <Table contents={filteredData} />
+          <EVStationTable contents={filteredData} />
           <Pagination perPage={30} />
         </div>
       </div>

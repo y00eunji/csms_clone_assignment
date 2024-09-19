@@ -1,7 +1,7 @@
+import { useGetOperatingInstitution } from '@/entities/Station/api/useGetOperatingInstitution.ts';
 import Dropdown from '@/feature/search-data/ui/Dropdown.tsx';
 import StationInput from '@/feature/search-data/ui/StationInput.tsx';
-import { useGetOperatingInstitution } from '@/shared/api/useGetOperatingInstitution.ts';
-import useInput from '@/shared/lib/hooks/useInput.ts';
+import useInput from '@/shared/lib/useInput.ts';
 import Button from '@/shared/ui/Button/Button.tsx';
 
 import { useState } from 'react';
@@ -10,7 +10,7 @@ interface SearchInputsProps {
   onSearch: (filters: { stationName: string; stationAddress: string; selectedOperations: string[] }) => void;
 }
 
-export default function SearchInputs({ onSearch }: SearchInputsProps) {
+export function SearchInputs({ onSearch }: SearchInputsProps) {
   const [stationName, setStationNameChange] = useInput('');
   const [stationAddress, setStationAddressChange] = useInput('');
   const [selectedOperations, setSelectedOperations] = useState<string[]>([]);

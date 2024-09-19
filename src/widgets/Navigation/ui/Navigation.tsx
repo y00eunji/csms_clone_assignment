@@ -1,10 +1,10 @@
 import { cn } from '@/shared/lib/cn.ts';
-import { NAV_NAME } from '@/widgets/Navigation/constants/navName.ts';
+import { NAV_NAME } from '@/widgets/Navigation/model/const.ts';
 
 import { useState } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
-export default function Navigation() {
+export function Navigation() {
   const [activeCategory, setActiveCategory] = useState('충전인프라 관리');
   const [activeSubCategory, setActiveSubCategory] = useState('충전소 관리');
   const [expandedCategory, setExpandedCategory] = useState('충전인프라 관리');

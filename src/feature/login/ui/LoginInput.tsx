@@ -1,11 +1,9 @@
 import { cn } from '@/shared/lib/cn.ts';
 import Input from '@/shared/ui/input/Input.tsx';
 
-import { ChangeEvent, FC, ReactNode, useState } from 'react';
-import { FaEyeSlash } from 'react-icons/fa';
-import { MdRemoveRedEye } from 'react-icons/md';
-import { RiErrorWarningFill } from 'react-icons/ri';
-import { TiDelete } from 'react-icons/ti';
+import { ChangeEvent, useState } from 'react';
+
+import { DeleteIcon, ErrorIcon, PasswordToggle } from './Icons.tsx';
 
 interface InputFieldProps {
   placeholder: string;
@@ -17,34 +15,6 @@ interface InputFieldProps {
   onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
   onFocus?: () => void;
 }
-
-const IconWrapper: FC<{ className?: string; onClick?: () => void; children: ReactNode }> = ({
-  className,
-  onClick,
-  children,
-}) => (
-  <span className={cn('absolute top-1/3 transform -translate-y-1/2', className)} onClick={onClick}>
-    {children}
-  </span>
-);
-
-const ErrorIcon: FC<{ isPassword?: boolean }> = ({ isPassword }) => (
-  <IconWrapper className={isPassword ? 'right-12' : 'right-3'}>
-    <RiErrorWarningFill size={25} className="text-red-500" />
-  </IconWrapper>
-);
-
-const DeleteIcon: FC<{ isPassword?: boolean; onClick: () => void }> = ({ isPassword, onClick }) => (
-  <IconWrapper className={isPassword ? 'right-10' : 'right-2'} onClick={onClick}>
-    <TiDelete size={35} className="opacity-60" />
-  </IconWrapper>
-);
-
-const PasswordToggle: FC<{ visible: boolean; onClick: () => void }> = ({ visible, onClick }) => (
-  <IconWrapper className="right-3" onClick={onClick}>
-    {visible ? <MdRemoveRedEye size={30} className="opacity-60" /> : <FaEyeSlash size={30} className="opacity-60" />}
-  </IconWrapper>
-);
 
 export default function LoginInput({
   placeholder,
