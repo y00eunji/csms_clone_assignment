@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
 export default function Navigation() {
-  // Setting default states for active and expanded categories
   const [activeCategory, setActiveCategory] = useState('충전인프라 관리');
   const [activeSubCategory, setActiveSubCategory] = useState('충전소 관리');
   const [expandedCategory, setExpandedCategory] = useState('충전인프라 관리');
@@ -13,17 +12,25 @@ export default function Navigation() {
   const handleCategoryClick = (name: string) => {
     if (name !== expandedCategory) {
       setExpandedCategory(name);
+
+      const category = NAV_NAME.find(item => item.name === name);
+      if (category?.sub && 0 < category.sub.length) {
+        setActiveSubCategory(category.sub[0]);
+      } else {
+        setActiveSubCategory('');
+      }
     } else {
       setExpandedCategory('');
+      setActiveSubCategory('');
     }
+
     setActiveCategory(name);
-    if (!NAV_NAME.find(item => item.name === name)?.sub) setActiveSubCategory('');
   };
 
   return (
-    <nav className="h-screen w-[300px] bg-[#1d2934] flex flex-col items-center p-3 pt-12">
+    <nav className="h-screen w-[300px] bg-[#1d2934] flex flex-col items-center p-3 pt-12  text-white">
       <img src="/nav/ci-eviq-logo.png" alt="로고" width={150} height={80} />
-      <div className="w-full text-center text-white">ver 1.0</div>
+      <div className="w-full text-center">ver 1.0</div>
       <ul className="w-full mt-5">
         {NAV_NAME.map((item, index) => {
           const isActive = item.name === activeCategory;
@@ -32,29 +39,29 @@ export default function Navigation() {
           return (
             <li
               key={index}
-              className={`w-full text-gray-300 font-semibold mb-2 hover:text-white cursor-pointer`}
+              className={`w-full font-semibold mb-2 cursor-pointer `}
               onClick={() => handleCategoryClick(item.name)}
             >
               <div
                 className={cn(
-                  'flex items-center justify-between w-full px-4 py-2 rounded',
-                  isActive && 'bg-[#00adff] text-white',
+                  'flex items-center justify-between w-full p-4 rounded hover:bg-[#434C54]',
+                  isActive && 'bg-[#00adff] hover:bg-[#00adff]',
                 )}
               >
-                <div className="flex items-center justify-center">
-                  <img src={item.src} alt={item.name} className="mr-3" width={20} height={20} />
+                <div className="flex items-center justify-center  ">
+                  <img src={item.src} alt={item.name} className="mr-3" width={25} height={25} />
                   <span>{item.name}</span>
                 </div>
                 {item.sub && <span>{isExpanded ? <BiSolidUpArrow size={10} /> : <BiSolidDownArrow size={10} />}</span>}
               </div>
               {item.sub && isExpanded && (
-                <ul className="ml-8 mt-2">
+                <ul className="mt-2 w-full">
                   {item.sub.map((subItem, subIndex) => {
                     const isSubActive = subItem === activeSubCategory;
                     return (
                       <li
                         key={subIndex}
-                        className={`p-2 ${isSubActive && 'bg-[#1a3648] text-[#00adff] rounded hover:text-[#00adff]'} hover:text-white`}
+                        className={`pl-14 p-4 w-full hover:bg-[#1a3648] ${isSubActive && 'text-[#00adff] rounded hover:text-[#00adff] hover:bg-[#1a3648]'}`}
                         onClick={e => {
                           e.stopPropagation();
                           setActiveSubCategory(subItem);

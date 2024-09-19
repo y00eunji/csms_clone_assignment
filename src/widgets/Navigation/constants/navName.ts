@@ -15,10 +15,12 @@ export const NAV_NAME = [
   {
     name: '회원 관리',
     src: '/nav/user.png',
+    sub: ['온라인 회원 목록'],
   },
   {
     name: '충전단가 관리',
     src: '/nav/price.png',
+    sub: ['충전단가 목록', '충전단가 히스토리'],
   },
   {
     name: '상담접수 내역',
@@ -27,5 +29,6 @@ export const NAV_NAME = [
   {
     name: '시스템 설정',
     src: '/nav/setting.png',
+    sub: ['공지사항', '관리자 계정 관리'],
   },
 ];
