@@ -18,7 +18,35 @@ interface InputFieldProps {
   onFocus?: () => void;
 }
 
-export default function LoginInput({
+const IconWrapper: React.FC<{ className?: string; onClick?: () => void; children: React.ReactNode }> = ({
+  className,
+  onClick,
+  children,
+}) => (
+  <span className={cn('absolute top-1/3 transform -translate-y-1/2', className)} onClick={onClick}>
+    {children}
+  </span>
+);
+
+const ErrorIcon: React.FC<{ isPassword?: boolean }> = ({ isPassword }) => (
+  <IconWrapper className={isPassword ? 'right-12' : 'right-3'}>
+    <RiErrorWarningFill size={25} className="text-red-500" />
+  </IconWrapper>
+);
+
+const DeleteIcon: React.FC<{ isPassword?: boolean; onClick: () => void }> = ({ isPassword, onClick }) => (
+  <IconWrapper className={isPassword ? 'right-10' : 'right-2'} onClick={onClick}>
+    <TiDelete size={35} className="opacity-60" />
+  </IconWrapper>
+);
+
+const PasswordToggle: React.FC<{ visible: boolean; onClick: () => void }> = ({ visible, onClick }) => (
+  <IconWrapper className="right-3" onClick={onClick}>
+    {visible ? <MdRemoveRedEye size={30} className="opacity-60" /> : <FaEyeSlash size={30} className="opacity-60" />}
+  </IconWrapper>
+);
+
+export default function LoginqInput({
   placeholder,
   value,
   isPassword,
@@ -28,11 +56,7 @@ export default function LoginInput({
   onBlur,
   onFocus,
 }: InputFieldProps) {
-  const [visible, setVisible] = useState(true);
-
-  const handleVisible = () => {
-    setVisible(prev => !prev);
-  };
+  const [visible, setVisible] = useState(!isPassword);
 
   return (
     <div className="relative h-[80px] flex flex-col gap-[2px] items-start">
@@ -44,44 +68,15 @@ export default function LoginInput({
         placeholder={placeholder}
         value={value}
         className={cn(
-          'w-full border-2 bg-[#242424FF] p-3 text-white',
+          'w-full border-2 bg-[#242424FF] p-3 text-white placeholder:text-sm',
           isEmpty ? 'border-red-500' : 'border-transparent',
           isPassword ? 'pr-20' : 'pr-12',
         )}
       />
-      {/* 경고 아이콘 */}
-      {isEmpty && !isPassword && (
-        <span className="absolute right-3 top-1/3 transform -translate-y-1/2">
-          <RiErrorWarningFill size={25} className="text-red-500" />
-        </span>
-      )}
-      {isEmpty && isPassword && (
-        <span className="absolute right-12 top-1/3 transform -translate-y-1/2">
-          <RiErrorWarningFill size={25} className="text-red-500" />
-        </span>
-      )}
-
-      {/* 삭제 아이콘 */}
-      {value && (
-        <span
-          className={cn('absolute top-1/3 transform -translate-y-1/2', isPassword ? 'right-10' : 'right-2')}
-          onClick={onClick}
-        >
-          <TiDelete size={35} className="opacity-60" />
-        </span>
-      )}
-
-      {/* 비밀번호 숨김 아이콘 */}
-      {isPassword && (
-        <span className="absolute right-3 top-1/3 transform -translate-y-1/2" onClick={handleVisible}>
-          {visible ? (
-            <MdRemoveRedEye size={30} className="opacity-60" />
-          ) : (
-            <FaEyeSlash size={30} className="opacity-60" />
-          )}
-        </span>
-      )}
-
+      {/* 아이콘 */}
+      {isEmpty && <ErrorIcon isPassword={isPassword} />}
+      {value && <DeleteIcon isPassword={isPassword} onClick={onClick} />}
+      {isPassword && <PasswordToggle visible={visible} onClick={() => setVisible(prev => !prev)} />}
       {isEmpty && <p className="text-[12px] text-red-600 ml-2">{placeholder}는 필수값입니다.</p>}
     </div>
   );

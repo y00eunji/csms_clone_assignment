@@ -1,9 +1,11 @@
-import { isEmpty } from '@/feature/login/lib/validation.ts';
+import { isEmpty, isIdValid, isPasswordValid } from '@/feature/login/lib/validation.ts';
 import LoginInput from '@/feature/login/ui/LoginInput.tsx';
+import { usePostLogin } from '@/shared/api/usePostLogin.ts';
 import useInput from '@/shared/lib/hooks/useInput.ts';
+import { useAuthStore } from '@/shared/model/useAuthStore.ts';
 import Button from '@/shared/ui/Button/Button.tsx';
 
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function LoginForm() {
@@ -15,7 +17,9 @@ export default function LoginForm() {
   const [isIdEmpty, setIsIdEmpty] = useState(false);
   const [isPasswordEmpty, setIsPasswordEmpty] = useState(false);
 
-  const handleIsEmpty = (setter: React.Dispatch<React.SetStateAction<boolean>>, value: string) => {
+  const { mutate: login } = usePostLogin();
+
+  const handleIsEmpty = (setter: Dispatch<SetStateAction<boolean>>, value: string) => {
     setter(isEmpty(value));
   };
 
@@ -27,21 +31,33 @@ export default function LoginForm() {
     setIsPasswordEmpty(false);
   };
 
-  const handleLoginButtonClick = () => {
-    if (isIdEmpty || isPasswordEmpty) return;
-
-    // TODO: login logic
-
-    // 로그인 성공 시 충전소 관리 페이지로 이동
-    navigate('/charging-infra/ev-station/list');
-  };
-
   const handleIdDeleteButton = () => {
     resetIdValue();
   };
 
   const handlePasswordDeleteButton = () => {
     resetPasswordValue();
+  };
+
+  // 로그인 성공 시 충전소 관리 페이지로 이동
+  const handleLoginButtonClick = () => {
+    if (isIdEmpty || isPasswordEmpty) return;
+
+    if (!isIdValid(idValue) || !isPasswordValid(passwordValue)) return;
+
+    login(
+      {
+        userId: idValue,
+        userPassword: passwordValue,
+        serviceType: import.meta.env.VITE_CSMS_SERVICE_TYPE,
+      },
+      {
+        onSuccess: () => {
+          useAuthStore.getState().login();
+          navigate('/charging-infra/ev-station/list');
+        },
+      },
+    );
   };
 
   return (
