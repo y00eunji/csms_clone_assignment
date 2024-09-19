@@ -10,9 +10,18 @@ interface IStationInputProps {
   placeholder: string;
   className?: string;
   label?: string;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-export default function StationInput({ value, onClick, label, onChange, placeholder, className }: IStationInputProps) {
+export default function StationInput({
+  value,
+  onClick,
+  label,
+  onChange,
+  placeholder,
+  className,
+  onKeyDown,
+}: IStationInputProps) {
   return (
     <div className="w-[30%] flex items-center gap-8">
       <label>{label}</label>
@@ -21,6 +30,7 @@ export default function StationInput({ value, onClick, label, onChange, placehol
         value={value}
         onChange={onChange}
         onClick={onClick}
+        onKeyDown={onKeyDown}
         className={cn('bg-gray-200 p-3 rounded-[7px] w-[60%] placeholder:text-sm', className)}
       />
     </div>

@@ -6,9 +6,13 @@ import Button from '@/shared/ui/Button/Button.tsx';
 
 import { useState } from 'react';
 
-export default function SearchInputs() {
-  const [stationName, setStationNameChange] = useInput();
-  const [stationAddress, setStationAddressChange] = useInput();
+interface SearchInputsProps {
+  onSearch: (filters: { stationName: string; stationAddress: string; selectedOperations: string[] }) => void;
+}
+
+export default function SearchInputs({ onSearch }: SearchInputsProps) {
+  const [stationName, setStationNameChange] = useInput('');
+  const [stationAddress, setStationAddressChange] = useInput('');
   const [selectedOperations, setSelectedOperations] = useState<string[]>([]);
   const { data: operations = [] } = useGetOperatingInstitution();
 
@@ -19,7 +23,17 @@ export default function SearchInputs() {
   };
 
   const handleSearchButton = () => {
-    console.log('검색 버튼 클릭');
+    onSearch({
+      stationName,
+      stationAddress,
+      selectedOperations,
+    });
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if ('Enter' === event.key) {
+      handleSearchButton();
+    }
   };
 
   return (
@@ -29,6 +43,7 @@ export default function SearchInputs() {
         value={stationName}
         onChange={setStationNameChange}
         placeholder="충전소 이름을 입력해주세요."
+        onKeyDown={handleKeyDown}
       />
 
       <Dropdown operations={operationsWithAll} onSelect={handleSelect} />
@@ -38,6 +53,7 @@ export default function SearchInputs() {
         value={stationAddress}
         onChange={setStationAddressChange}
         placeholder="충전소 주소를 입력해주세요."
+        onKeyDown={handleKeyDown}
       />
       <Button text="검색" onClick={handleSearchButton} className="text-white bg-[#00adff]" />
     </div>

@@ -19,7 +19,6 @@ export default function StationInfo() {
   const [filteredData, setFilteredData] = useState<IResponsePostStation['contents']>([]);
 
   const { data: userData } = useGetUser();
-
   const { mutate: fetchStationData, data: fetchedData } = usePostStationList();
 
   const toggleNavigation = () => {
@@ -39,12 +38,13 @@ export default function StationInfo() {
   useEffect(() => {
     if (fetchedData) {
       setStationData(fetchedData);
+      setFilteredData(fetchedData.contents);
     }
   }, [fetchedData]);
 
   useEffect(() => {
-    if (fetchedData) {
-      let updatedContents = fetchedData.contents;
+    if (stationData) {
+      let updatedContents = [...stationData.contents];
 
       if ('operating' === activeFilter) {
         updatedContents = updatedContents.filter(
@@ -62,7 +62,29 @@ export default function StationInfo() {
 
       setFilteredData(updatedContents);
     }
-  }, [activeFilter, fetchedData]);
+  }, [activeFilter]);
+
+  const handleSearch = (filters: { stationName: string; stationAddress: string; selectedOperations: string[] }) => {
+    if (stationData) {
+      let updatedContents = [...stationData.contents];
+
+      if (filters.stationName) {
+        updatedContents = updatedContents.filter(station => station.evStationName.includes(filters.stationName));
+      }
+
+      if (filters.stationAddress) {
+        updatedContents = updatedContents.filter(station => station.address.main.includes(filters.stationAddress));
+      }
+
+      if (0 < filters.selectedOperations.length && !filters.selectedOperations.includes('전체')) {
+        updatedContents = updatedContents.filter(station =>
+          filters.selectedOperations.includes(station.operatingInstitution),
+        );
+      }
+
+      setFilteredData(updatedContents);
+    }
+  };
 
   return (
     <div className="bg-gray-200 w-screen h-screen flex">
@@ -74,7 +96,7 @@ export default function StationInfo() {
         <Header userName={userData?.userId} toggleNavigation={toggleNavigation} />
         <div className={cn('flex flex-col gap-10 p-8 w-full')}>
           <h1 className="text-2xl font-semibold">충전소 관리</h1>
-          <SearchInputs />
+          <SearchInputs onSearch={handleSearch} />
           <FilterButtons
             active={activeFilter}
             setActive={setActiveFilter}
