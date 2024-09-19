@@ -1,3 +1,4 @@
+import PrivateRoute from '@/app/PrivateRoute.tsx';
 import LoginPage from '@/pages/loginPage.tsx';
 import StationInfo from '@/pages/stationInfo.tsx';
 
@@ -8,7 +9,10 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<LoginPage />} />
-        <Route path="/charging-infra/ev-station/list" element={<StationInfo />} />
+
+        <Route element={<PrivateRoute />}>
+          <Route path="/charging-infra/ev-station/list" element={<StationInfo />} />
+        </Route>
       </Routes>
     </div>
   );
