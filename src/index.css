@@ -30,3 +30,13 @@
     @apply bg-gray-50;
   }
 }
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 500px #242424 inset !important;
+  box-shadow: 0 0 0 500px #242424 inset !important;
+  border: 1px solid white;
+  -webkit-text-fill-color: white !important;
+  border-radius: 16px;
+  background-color: #242424 !important;
+  background-clip: padding-box !important;
+}
