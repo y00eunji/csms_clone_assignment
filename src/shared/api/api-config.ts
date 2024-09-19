@@ -1,6 +1,7 @@
 import { postReissue } from '@/shared/api/postReissue.ts';
 import { ERROR_CODE, TYPE_ERROR_CODE } from '@/shared/constants/errorCode.ts';
 import { clearTokens, getTokens, setTokens } from '@/shared/lib/storage.ts';
+import { useAuthStore } from '@/shared/model/useAuthStore.ts';
 
 import axios, { AxiosHeaders, InternalAxiosRequestConfig, Method } from 'axios';
 
@@ -40,7 +41,7 @@ export const axiosRequest = async <T>(
   axiosInstance: ReturnType<typeof createAxiosInstance>,
   method: Method = 'GET',
   url: string,
-  data?: object | ArrayBuffer | Record<string, unknown>,
+  data?: object | Record<string, unknown>,
   params?: Record<string, unknown>,
   headers?: Record<string, string>,
 ): Promise<T> => {
@@ -68,10 +69,12 @@ export const axiosRequest = async <T>(
               } else {
                 console.log('토큰 갱신 실패, 로그아웃 처리');
                 clearTokens();
+                useAuthStore.getState().logout();
               }
             } catch (refreshError) {
               console.error('Failed to refresh token', refreshError);
               clearTokens();
+              useAuthStore.getState().logout();
             }
           }
           break;
@@ -81,6 +84,7 @@ export const axiosRequest = async <T>(
         case 2013: // 리프레시 토큰이 만료
           console.log('메인으로 보내기');
           clearTokens();
+          useAuthStore.getState().logout();
           break;
       }
     }
