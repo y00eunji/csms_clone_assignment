@@ -1,4 +1,4 @@
-import { usePostReissue } from '@/entities/Station/api/usePostReissue.ts';
+import { postReissue } from '@/shared/api/postReissue.ts';
 import { clearTokens, getTokens, setTokens } from '@/shared/lib/storage.ts';
 import { ERROR_CODE, TYPE_ERROR_CODE } from '@/shared/model/const.ts';
 import { useAuthStore } from '@/shared/model/useAuthStore.ts';
@@ -63,7 +63,7 @@ export const axiosRequest = async <T>(
           const { accessToken, refreshToken } = getTokens();
           if (refreshToken && accessToken) {
             try {
-              const result = await usePostReissue({ accessToken, refreshToken });
+              const result = await postReissue({ accessToken, refreshToken });
               if (!ERROR_CODE.includes(result.resultCode as TYPE_ERROR_CODE)) {
                 setTokens(result.resultData.accessToken);
               } else {

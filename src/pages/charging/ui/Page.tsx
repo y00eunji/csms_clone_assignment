@@ -1,10 +1,10 @@
 import { EVStationTable, Pagination } from '@/entities/Station';
+import { useGetUser } from '@/entities/Station/api/useGetUser.ts';
 import { IResponsePostStation, usePostStationList } from '@/entities/Station/api/usePostStationList.ts';
 import { StationOperatingStatusEnum } from '@/entities/Station/model/type.ts';
 import { FilterType } from '@/entities/Station/ui/FilterButton.tsx';
 import { FilterButtons } from '@/feature/filter-operations';
 import { SearchInputs } from '@/feature/search-data';
-import { useGetUser } from '@/shared/api/useGetUser.ts';
 import { cn } from '@/shared/lib/cn.ts';
 import { Navigation } from '@/widgets/Navigation';
 

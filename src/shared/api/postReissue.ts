@@ -5,6 +5,6 @@ interface IPostReissueToken {
   refreshToken: string;
 }
 
-export const usePostReissue = async (data: IPostReissueToken): Promise<ApiResponse<IPostReissueToken>> => {
+export const postReissue = async (data: IPostReissueToken): Promise<ApiResponse<IPostReissueToken>> => {
   return await axiosRequest<ApiResponse<IPostReissueToken>>(tokenApi, 'POST', '/token/reissue', data);
 };
