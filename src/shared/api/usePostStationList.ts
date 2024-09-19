@@ -56,7 +56,6 @@ export const usePostStationList = (): UseMutationResult<
     mutationKey: ['post-station-list'],
     mutationFn: (request: { params: IParamsPostStationList }) => postStationList(request),
     onSuccess: data => {
-      console.log(data);
       return data;
     },
   });

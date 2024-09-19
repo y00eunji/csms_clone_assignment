@@ -90,9 +90,9 @@ export default function Dropdown({ operations, onSelect }: IDropdownProps) {
 
       {isOpen && (
         <ul className="absolute bg-white border border-gray-300 rounded-md mt-1 ml-2 w-[70%] z-10 left-20">
-          {operations.map(operation => (
+          {operations.map((operation, index) => (
             <li
-              key={operation}
+              key={index}
               onClick={() => handleOptionClick(operation)}
               className={`p-3 cursor-pointer hover:bg-gray-100  ${
                 selectedOptions.includes(operation) && 'bg-[#f2fbff] text-[#00adff]'

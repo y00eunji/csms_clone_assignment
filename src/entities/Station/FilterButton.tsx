@@ -1,12 +1,14 @@
 import { cn } from '@/shared/lib/cn.ts';
 
-export type FilterType = 'operating' | 'temporary' | 'permanent' | 'none';
+import { MouseEventHandler } from 'react';
+
+export type FilterType = 'operating' | 'pause' | 'stop' | 'none';
 
 interface IFilterButtonProps {
   name: string;
   text: string;
   activeButton?: FilterType;
-  onClick: React.MouseEventHandler<HTMLButtonElement>;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   count?: number;
 }
 

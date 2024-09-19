@@ -1,6 +1,7 @@
 import { FilterType } from '@/entities/Station/FilterButton.tsx';
 import Pagination from '@/entities/Station/Pagination.tsx';
 import Table from '@/entities/Station/Table.tsx';
+import { StationOperatingStatusEnum } from '@/entities/Station/model/typs.ts';
 import FilterButtons from '@/feature/filter-operations/ui/FilterButtons.tsx';
 import SearchInputs from '@/feature/search-data/ui/SearchInputs.tsx';
 import { useGetUser } from '@/shared/api/useGetUser.ts';
@@ -15,8 +16,10 @@ export default function StationInfo() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [activeFilter, setActiveFilter] = useState<FilterType>('none');
   const [stationData, setStationData] = useState<IResponsePostStation | null>(null);
+  const [filteredData, setFilteredData] = useState<IResponsePostStation['contents']>([]);
 
   const { data: userData } = useGetUser();
+
   const { mutate: fetchStationData, data: fetchedData } = usePostStationList();
 
   const toggleNavigation = () => {
@@ -39,6 +42,28 @@ export default function StationInfo() {
     }
   }, [fetchedData]);
 
+  useEffect(() => {
+    if (fetchedData) {
+      let updatedContents = fetchedData.contents;
+
+      if ('operating' === activeFilter) {
+        updatedContents = updatedContents.filter(
+          station => StationOperatingStatusEnum.OPERATING === station.operatingStatus,
+        );
+      } else if ('pause' === activeFilter) {
+        updatedContents = updatedContents.filter(
+          station => StationOperatingStatusEnum.PAUSE === station.operatingStatus,
+        );
+      } else if ('stop' === activeFilter) {
+        updatedContents = updatedContents.filter(
+          station => StationOperatingStatusEnum.STOP === station.operatingStatus,
+        );
+      }
+
+      setFilteredData(updatedContents);
+    }
+  }, [activeFilter, fetchedData]);
+
   return (
     <div className="bg-gray-200 w-screen h-screen flex">
       <div className={cn('transition-transform duration-300', !isNavOpen && 'hidden')}>
@@ -54,12 +79,12 @@ export default function StationInfo() {
             active={activeFilter}
             setActive={setActiveFilter}
             counts={{
-              operating: stationData?.operatingStatistics.operating,
-              pause: stationData?.operatingStatistics.pause,
-              stop: stationData?.operatingStatistics.stop,
+              operating: stationData?.operatingStatistics.operating || 0,
+              pause: stationData?.operatingStatistics.pause || 0,
+              stop: stationData?.operatingStatistics.stop || 0,
             }}
           />
-          <Table contents={stationData?.contents || []} />
+          <Table contents={filteredData} />
           <Pagination perPage={30} />
         </div>
       </div>

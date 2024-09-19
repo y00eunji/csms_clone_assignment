@@ -16,7 +16,6 @@ export default function FilterButtons({ active, setActive, counts }: IFilterButt
     }
     setActive(e.currentTarget.name as FilterType);
   };
-
   return (
     <div className="flex gap-5">
       <FilterButton
@@ -28,18 +27,12 @@ export default function FilterButtons({ active, setActive, counts }: IFilterButt
       />
       <FilterButton
         text="임시중지"
-        name="temporary"
+        name="pause"
         onClick={handleButtonClick}
         activeButton={active}
         count={counts.pause}
       />
-      <FilterButton
-        text="영구중지"
-        name="permanent"
-        onClick={handleButtonClick}
-        activeButton={active}
-        count={counts.stop}
-      />
+      <FilterButton text="영구중지" name="stop" onClick={handleButtonClick} activeButton={active} count={counts.stop} />
     </div>
   );
 }
