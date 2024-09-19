@@ -14,7 +14,10 @@ export default function SearchInputs({ onSearch }: SearchInputsProps) {
   const [stationName, setStationNameChange] = useInput('');
   const [stationAddress, setStationAddressChange] = useInput('');
   const [selectedOperations, setSelectedOperations] = useState<string[]>([]);
-  const { data: operations = [] } = useGetOperatingInstitution();
+  const { data: operations = [], isLoading, isError } = useGetOperatingInstitution();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error fetching data</div>;
 
   const operationsWithAll = ['전체', ...operations.map(op => op.label)];
 
