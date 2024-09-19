@@ -2,7 +2,7 @@ import { RxHamburgerMenu } from 'react-icons/rx';
 import { TbLogout } from 'react-icons/tb';
 
 interface IHeaderProps {
-  userName: string;
+  userName: string | undefined;
   toggleNavigation: () => void;
 }
 
