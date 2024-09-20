@@ -1,4 +1,5 @@
-import { tokenApi, axiosRequest, ApiResponse } from '@/shared/api/api-config.ts';
+import { axiosRequest, tokenApi } from '@/shared/api/request.ts';
+import { ApiResponse } from '@/shared/model/type.ts';
 
 interface IPostReissueToken {
   accessToken: string;

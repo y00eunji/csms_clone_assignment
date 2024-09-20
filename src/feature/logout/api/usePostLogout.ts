@@ -1,4 +1,4 @@
-import { tokenApi, axiosRequest } from '@/shared/api/api-config.ts';
+import { axiosRequest, tokenApi } from '@/shared/api/request.ts';
 import { clearTokens } from '@/shared/lib/storage.ts';
 
 import { useMutation, UseMutationResult } from '@tanstack/react-query';

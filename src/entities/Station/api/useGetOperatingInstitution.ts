@@ -1,4 +1,4 @@
-import { axiosRequest, csmsApi } from '@/shared/api/api-config.ts';
+import { axiosRequest, csmsApi } from '@/shared/api/request.ts';
 
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
