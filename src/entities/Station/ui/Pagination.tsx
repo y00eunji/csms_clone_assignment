@@ -1,6 +1,7 @@
 import { cn } from '@/shared/lib/cn.ts';
+import { useOutsideClick } from '@/shared/lib/useOutsideClick.ts';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
 interface IPaginationProps {
@@ -19,20 +20,7 @@ export function Pagination({ perPage }: IPaginationProps) {
     setIsOpen(false);
   };
 
-  // 모달 외부를 클릭하면 닫히게 하는 useEffect
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   return (
     <div className="w-full flex justify-end">

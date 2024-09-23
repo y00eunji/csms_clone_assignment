@@ -1,4 +1,5 @@
 import { cn } from '@/shared/lib/cn.ts';
+import { useOutsideClick } from '@/shared/lib/useOutsideClick.ts';
 
 import { useState, useEffect, useRef } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
@@ -53,20 +54,7 @@ export default function Dropdown({ operations, onSelect }: IDropdownProps) {
     );
   };
 
-  // 모달 외부를 클릭하면 닫히게 하는 useEffect
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  useOutsideClick(dropdownRef, () => setIsOpen(false));
 
   // 선택된 옵션이 변경될 때 상위 컴포넌트로 전달
   useEffect(() => {
