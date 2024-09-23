@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
 export function Navigation() {
-  const [activeCategory, setActiveCategory] = useState('충전인프라 관리');
-  const [activeSubCategory, setActiveSubCategory] = useState('충전소 관리');
-  const [expandedCategory, setExpandedCategory] = useState('충전인프라 관리');
+  const [activeCategory, setActiveCategory] = useState(NAV_NAME[1]?.name || '');
+  const [activeSubCategory, setActiveSubCategory] = useState(NAV_NAME[1]?.sub?.[0] || '');
+  const [expandedCategory, setExpandedCategory] = useState(NAV_NAME[1]?.name || '');
 
   const handleCategoryClick = (name: string) => {
     if (name !== expandedCategory) {

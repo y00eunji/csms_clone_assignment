@@ -2,10 +2,11 @@ import { EVStationTable, Pagination } from '@/entities/Station';
 import { useGetUser } from '@/entities/Station/api/useGetUser.ts';
 import { IResponsePostStation, usePostStationList } from '@/entities/Station/api/usePostStationList.ts';
 import { StationOperatingStatusEnum } from '@/entities/Station/model/type.ts';
-import { FilterType } from '@/entities/Station/ui/FilterButton.tsx';
 import { FilterButtons } from '@/feature/filter-operations';
 import { SearchInputs } from '@/feature/search-data';
 import { cn } from '@/shared/lib/cn.ts';
+import { FILTER } from '@/shared/model/const.ts';
+import { FilterType } from '@/shared/model/type.ts';
 import { Navigation } from '@/widgets/Navigation';
 
 import { useEffect, useState } from 'react';
@@ -48,15 +49,15 @@ export function ChargingInfraPage() {
     if (stationData) {
       let updatedContents = [...stationData.contents];
 
-      if ('operating' === activeFilter) {
+      if (FILTER[0] === activeFilter) {
         updatedContents = updatedContents.filter(
           station => StationOperatingStatusEnum.OPERATING === station.operatingStatus,
         );
-      } else if ('pause' === activeFilter) {
+      } else if (FILTER[1] === activeFilter) {
         updatedContents = updatedContents.filter(
           station => StationOperatingStatusEnum.PAUSE === station.operatingStatus,
         );
-      } else if ('stop' === activeFilter) {
+      } else if (FILTER[2] === activeFilter) {
         updatedContents = updatedContents.filter(
           station => StationOperatingStatusEnum.STOP === station.operatingStatus,
         );

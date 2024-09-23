@@ -4,3 +4,5 @@ export interface ApiResponse<T> {
   needRedirect: boolean;
   resultData: T;
 }
+
+export type FilterType = 'operating' | 'pause' | 'stop' | 'none';

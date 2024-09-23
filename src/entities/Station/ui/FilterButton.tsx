@@ -1,8 +1,7 @@
 import { cn } from '@/shared/lib/cn.ts';
+import { FilterType } from '@/shared/model/type.ts';
 
 import { MouseEventHandler } from 'react';
-
-export type FilterType = 'operating' | 'pause' | 'stop' | 'none';
 
 interface IFilterButtonProps {
   name: string;
