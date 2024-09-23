@@ -1,7 +1,7 @@
 import { cn } from '@/shared/lib/cn.ts';
 import Input from '@/shared/ui/input/Input.tsx';
 
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import { DeleteIcon, ErrorIcon, PasswordToggle } from './Icons.tsx';
 

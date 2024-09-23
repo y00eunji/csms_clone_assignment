@@ -1,6 +1,6 @@
 import FilterButton, { FilterType } from '@/entities/Station/ui/FilterButton.tsx';
 
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 interface IFilterButtonsProps {
   active: FilterType;
