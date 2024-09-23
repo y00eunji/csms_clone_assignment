@@ -23,5 +23,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src","**/*.tsx", "**/**/*.tsx",  "**/**/**/*.tsx"],
+  "include": ["src","**/*.tsx", "**/**/*.tsx",  "**/**/**/*.tsx",  ".d.ts"],
 }
