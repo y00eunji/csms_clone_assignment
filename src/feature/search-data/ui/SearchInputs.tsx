@@ -4,7 +4,7 @@ import StationInput from '@/feature/search-data/ui/StationInput.tsx';
 import useInput from '@/shared/lib/useInput.ts';
 import Button from '@/shared/ui/Button/Button.tsx';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 interface SearchInputsProps {
   onSearch: (filters: { stationName: string; stationAddress: string; selectedOperations: string[] }) => void;
