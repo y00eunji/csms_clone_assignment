@@ -39,7 +39,7 @@ export function Navigation() {
           return (
             <li
               key={index}
-              className={`w-full font-semibold mb-2 cursor-pointer `}
+              className={`w-full font-semibold mb-2 cursor-pointer`}
               onClick={() => handleCategoryClick(item.name)}
             >
               <div
@@ -48,7 +48,7 @@ export function Navigation() {
                   isActive && 'bg-[#00adff] hover:bg-[#00adff]',
                 )}
               >
-                <div className="flex items-center justify-center  ">
+                <div className="flex items-center justify-center">
                   <img src={item.src} alt={item.name} className="mr-3" width={25} height={25} />
                   <span>{item.name}</span>
                 </div>

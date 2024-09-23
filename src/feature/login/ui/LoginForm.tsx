@@ -81,7 +81,7 @@ export function LoginForm() {
         onFocus={handlePasswordFocus}
         onBlur={event => handleIsEmpty(setIsPasswordEmpty, event.target.value)}
       />
-      <Button text="Log In" onClick={handleLoginButtonClick} className="bg-white text-black mt-4 font-semibold " />
+      <Button text="Log In" onClick={handleLoginButtonClick} className="bg-white text-black mt-4 font-semibold" />
     </div>
   );
 }

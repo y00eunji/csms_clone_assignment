@@ -23,7 +23,7 @@ export function LoginPage() {
           <div className="text-[20px] font-light mt-6">EVIQ is an all-in-one EV information and charging platform.</div>
         </div>
         <div className="w-[35%] bg-[#131722] font-light flex flex-col items-center justify-center">
-          <div className="flex flex-col items-center justify-center ">
+          <div className="flex flex-col items-center justify-center">
             <div className="mb-9">
               <img src="/ci-eviq-white.png" alt="logo" className="w-[200px] h-[60px]" />
               <div className="text-white font-semibold text-2xl mt-4">관리자시스템 로그인</div>

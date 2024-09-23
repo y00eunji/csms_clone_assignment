@@ -1,3 +1,5 @@
+import { cn } from '@/shared/lib/cn.ts';
+
 import { useState, useEffect, useRef } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
@@ -94,9 +96,10 @@ export default function Dropdown({ operations, onSelect }: IDropdownProps) {
             <li
               key={index}
               onClick={() => handleOptionClick(operation)}
-              className={`p-3 cursor-pointer hover:bg-gray-100  ${
-                selectedOptions.includes(operation) && 'bg-[#f2fbff] text-[#00adff]'
-              }`}
+              className={cn(
+                'p-3 cursor-pointer hover:bg-gray-100',
+                selectedOptions.includes(operation) && 'bg-[#f2fbff] text-[#00adff]',
+              )}
             >
               {operation}
             </li>

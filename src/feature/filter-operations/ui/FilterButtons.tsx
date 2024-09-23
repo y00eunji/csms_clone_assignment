@@ -1,4 +1,5 @@
-import FilterButton, { FilterType } from '@/entities/Station/ui/FilterButton.tsx';
+import FilterButton from '@/entities/Station/ui/FilterButton.tsx';
+import { FilterType } from '@/shared/model/type.ts';
 
 import React, { Dispatch, SetStateAction } from 'react';
 

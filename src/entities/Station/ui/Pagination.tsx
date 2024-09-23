@@ -1,3 +1,5 @@
+import { cn } from '@/shared/lib/cn.ts';
+
 import { useEffect, useRef, useState } from 'react';
 import { BiSolidDownArrow, BiSolidUpArrow } from 'react-icons/bi';
 
@@ -49,12 +51,12 @@ export function Pagination({ perPage }: IPaginationProps) {
         </button>
 
         {isOpen && (
-          <ul className="absolute bg-white border border-gray-300 rounded-md mt-1 ml-12 w-24 z-10 ">
+          <ul className="absolute bg-white border border-gray-300 rounded-md mt-1 ml-12 w-24 z-10">
             {[10, 20, 30, 50].map(page => (
               <li
                 key={page}
                 onClick={() => handleOptionClick(page)}
-                className={`p-3 cursor-pointer hover:bg-gray-100  ${selectedOption === page && 'bg-[#f2fbff]'}`}
+                className={cn('p-3 cursor-pointer hover:bg-gray-100', selectedOption === page && 'bg-[#f2fbff]')}
               >
                 {page}
               </li>
