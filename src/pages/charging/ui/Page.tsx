@@ -5,64 +5,57 @@ import { StationOperatingStatusEnum } from '@/entities/Station/model/type.ts';
 import { FilterButtons } from '@/feature/filter-operations';
 import { SearchInputs } from '@/feature/search-data';
 import { cn } from '@/shared/lib/cn.ts';
-import { FILTER } from '@/shared/model/const.ts';
 import { FilterType } from '@/shared/model/type.ts';
 import { Navigation } from '@/widgets/Navigation';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 import { Header } from 'widgets/Header';
+
+const getOperatingStatus = (filter: FilterType) => {
+  return {
+    none: StationOperatingStatusEnum.OPERATING,
+    operating: StationOperatingStatusEnum.OPERATING,
+    pause: StationOperatingStatusEnum.PAUSE,
+    stop: StationOperatingStatusEnum.STOP,
+  }[filter];
+};
 
 export function ChargingInfraPage() {
   const [isNavOpen, setIsNavOpen] = useState(true);
   const [activeFilter, setActiveFilter] = useState<FilterType>('none');
   const [stationData, setStationData] = useState<IResponsePostStation | null>(null);
   const [filteredData, setFilteredData] = useState<IResponsePostStation['contents']>([]);
+  const [searchResults, setSearchResults] = useState<IResponsePostStation['contents'] | null>(null); // 검색된 결과를 저장할 상태
 
   const { data: userData } = useGetUser();
   const { mutate: fetchStationData, data: fetchedData } = usePostStationList();
 
-  const toggleNavigation = () => {
-    setIsNavOpen(prev => !prev);
-  };
+  const toggleNavigation = () => setIsNavOpen(prev => !prev);
 
-  // 데이터 패칭해오기
   useEffect(() => {
-    fetchStationData({
-      params: {
-        descending: false,
-        page: 1,
-        rowsPerPage: 30,
-      },
-    });
+    fetchStationData({ params: { descending: false, page: 1, rowsPerPage: 30 } });
   }, [fetchStationData]);
 
   useEffect(() => {
     if (fetchedData) {
       setStationData(fetchedData);
       setFilteredData(fetchedData.contents);
+      setSearchResults(fetchedData.contents);
     }
   }, [fetchedData]);
 
-  // 필터링 버튼
+  // 필터링 로직을 함수로 분리
+  const filterStations = useCallback((contents: IResponsePostStation['contents'], filter: FilterType) => {
+    const operatingStatus = getOperatingStatus(filter);
+    return contents.filter(station => station.operatingStatus === operatingStatus);
+  }, []);
+
+  // 필터링 처리
   useEffect(() => {
-    if (stationData) {
-      let updatedContents = [...stationData.contents];
-
-      if (FILTER[0] === activeFilter) {
-        updatedContents = updatedContents.filter(
-          station => StationOperatingStatusEnum.OPERATING === station.operatingStatus,
-        );
-      } else if (FILTER[1] === activeFilter) {
-        updatedContents = updatedContents.filter(
-          station => StationOperatingStatusEnum.PAUSE === station.operatingStatus,
-        );
-      } else if (FILTER[2] === activeFilter) {
-        updatedContents = updatedContents.filter(
-          station => StationOperatingStatusEnum.STOP === station.operatingStatus,
-        );
-      }
-
+    if (searchResults) {
+      // 검색 결과 내에서 필터링
+      const updatedContents = filterStations(searchResults, activeFilter);
       setFilteredData(updatedContents);
     }
   }, [activeFilter]);
@@ -86,7 +79,8 @@ export function ChargingInfraPage() {
         );
       }
 
-      setFilteredData(updatedContents);
+      setSearchResults(updatedContents); // 검색된 결과를 저장
+      setFilteredData(updatedContents); // 동시에 필터링된 데이터를 갱신
     }
   };
 
