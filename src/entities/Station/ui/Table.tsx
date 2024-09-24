@@ -1,30 +1,12 @@
+import { IResponsePostStation } from '@/entities/Station/api/usePostStationList.ts';
+
 import { IoSearchSharp } from 'react-icons/io5';
 
-interface Address {
-  main: string;
-  detail: string | null;
-}
-
-interface UserLimit {
-  item: number;
-  detail: string | null;
-}
-
-interface EVStation {
-  no: number;
-  evStationId: string;
-  operatingInstitution: string;
-  evStationName: string;
-  address: Address;
-  userLimit: UserLimit;
-  operatingStatus: number;
-  registerDate: string;
-}
+type EVStation = IResponsePostStation['contents'][number];
 
 interface TableProps {
   contents: EVStation[];
 }
-
 export function EVStationTable({ contents }: TableProps) {
   return (
     <div className="w-full bg-white border border-gray-300">
